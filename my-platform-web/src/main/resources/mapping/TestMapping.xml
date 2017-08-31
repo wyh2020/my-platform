@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wyh2020.platform.dao.TestMapper">
+
+    <resultMap id="testMap" type="com.wyh2020.platform.domain.Test"/>
+
+
+    <!--获取商品列表-->
+    <select id="getTestList" resultMap="testMap">
+        SELECT id, name, age from Test
+    </select>
+
+    <select id="selectSum" resultType="Integer">
+        SELECT sum FROM Test WHERE 1=1 AND id= #{id,jdbcType = INTEGER}
+    </select>
+
+
+    <update id="updateSum1" parameterType="com.wyh2020.platform.domain.Test">
+        UPDATE Test t
+        <set>
+            <if test="sum != null">
+                t.sum = #{sum,jdbcType = INTEGER}
+            </if>
+        </set>
+        WHERE
+        t.id= #{id,jdbcType = INTEGER}
+    </update>
+
+
+    <update id="updateSum2" parameterType="com.wyh2020.platform.domain.Test">
+        UPDATE Test t
+        <set>
+            <if test="sum != null">
+                t.sum = t.sum-1
+            </if>
+        </set>
+        WHERE
+        t.id= #{id,jdbcType = INTEGER}
+    </update>
+
+</mapper>
+
+
+
